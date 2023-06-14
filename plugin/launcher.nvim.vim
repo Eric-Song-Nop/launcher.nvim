@@ -27,11 +27,11 @@ EOF
 " only the `myluamodule` directory is specified, Neovim will look for a
 " `lua.lua` file, then an `init.lua` file in that directory. In this case, it
 " will find the `lua\myluamodule\init.lua` file.
-lua myluamodule = require("myluamodule")
+lua myluamodule = require("launcher")
 
 " Common convention in the Neovim plugin community is to require the module
 " and use it all at once:
-lua require'myluamodule'.setup({p1 = "value1"})
+lua require'launcher'.setup({p1 = "value1"})
 
 
 
@@ -87,4 +87,4 @@ nmap <M-C-L> :lua require'myluamodule'.local_lua_function()<CR>
 
 " Lua code can be defined in other files, rather than just `lua.lua` or
 " `init.lua`. Here, Lua code is defined in `lua\myluamodule\definestuff.lua`.
-lua require("myluamodule.definestuff").show_stuff()
+lua require("launcher.definestuff").show_stuff()
