@@ -12,6 +12,10 @@ An example of how to load this plugin in Lazy.nvim:
 {
     'Eric-Song-Nop/launcher.nvim',
     cmd = "DRun",
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope.nvim',
+    },
 }
 ```
 
