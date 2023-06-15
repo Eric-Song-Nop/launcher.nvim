@@ -2,6 +2,8 @@
 
 This is a simple Neovim plugin to find and run desktop entry from Neovim.
 
+![launcher.nvim](./assests/screenshot.png)
+
 ## Installation
 
 ### Lazy
