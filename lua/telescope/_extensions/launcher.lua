@@ -1,16 +1,16 @@
 local has_telescope, telescope = pcall(require, "telescope")
 
 if not has_telescope then
-    error("This plugins requires nvim-telescope/telescope.nvim")
+    error "This plugins requires nvim-telescope/telescope.nvim"
 end
 
-local pickers = require("telescope.pickers")
-local finders = require("telescope.finders")
+local pickers = require "telescope.pickers"
+local finders = require "telescope.finders"
 local conf = require("telescope.config").values
-local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
+local actions = require "telescope.actions"
+local action_state = require "telescope.actions.state"
 
-local launcher_lib = require("launcher.launcher")
+local launcher_lib = require "launcher.launcher"
 
 local function find()
     local v = launcher_lib.get_all_desktop_entries()
@@ -28,19 +28,29 @@ local function launch(opts)
                 actions.select_default:replace(function()
                     actions.close(prompt_bufnr)
                     local selection = action_state.get_selected_entry()
-                    launcher_lib.exec_from_path(selection[1])
+                    -- vim.notify(vim.inspect(selection))
+                    launcher_lib.exec_from_path(selection.value[1])
                 end)
                 return true
             end,
             prompt_title = "laucher",
-            finder = finders.new_table(find()),
+            finder = finders.new_table {
+                results = find(),
+                entry_maker = function(entry)
+                    return {
+                        value = entry,
+                        display = entry[1],
+                        ordinal = entry[1],
+                    }
+                end,
+            },
             sorter = conf.generic_sorter(opts),
         })
         :find()
 end
 
-return telescope.register_extension({
+return telescope.register_extension {
     exports = {
         launcher = launch,
     },
-})
+}
